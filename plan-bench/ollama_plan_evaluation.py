@@ -60,7 +60,8 @@ if __name__=="__main__":
     config_file = f'./configs/{config}.yaml'
 
     # list of models to evaluate
-    list_of_models = ['llama3', 'llama2', 'tinyllama','phind-codellama',
+    list_of_models = [#'llama3', 
+                      'llama2', 'tinyllama','phind-codellama',
                   'command-r-plus',
                   'wizardlm2',
                   'gemma',
@@ -76,7 +77,7 @@ if __name__=="__main__":
     for model in pbar:
         pbar.set_description(f"Generating responses of {model}")
         
-        engine = engine + model
+        engine = f"{engine}:{model}"
         response_generator = ResponseGenerator(config_file, engine, verbose, ignore_existing)
         task_name = 'task_1_plan_generation'
 
@@ -85,8 +86,8 @@ if __name__=="__main__":
     # ========================= Response Evaluation =========================
     for model in pbar:
         pbar.set_description(f"Evaluating responses of {model}")
-        
-        engine = engine + model
+
+        engine = f"{engine}:{model}"
         response_evaluator = ResponseEvaluator(config_file, engine, specified_instances, verbose, ignore_existing)
         task_name = 'task_1_plan_generation'
         response_evaluator.evaluate_plan(task_name)
