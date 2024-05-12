@@ -13,8 +13,10 @@ import json
 from tqdm import tqdm
 
 
+# MOD OLLAMA
+# added engine parameter
 class PromptGenerator:
-    def __init__(self,config_file, verbose, ignore_existing, seed) -> None:
+    def __init__(self,config_file, verbose, ignore_existing, seed, engine) -> None:
         self.n_examples = 1
         self.output_dir = "prompts"
         self.verbose = verbose
@@ -25,6 +27,14 @@ class PromptGenerator:
         self.domain_pddl = f'./instances/{self.data["domain_file"]}'
         self._set_task_params()
         self._set_seed(seed)
+        
+        # MOD OLLAMA
+        self.engine = engine
+        if 'finetuned' in self.engine:
+            self.engine='finetuned'
+        elif 'ollama' in self.engine:
+            model = self.engine.split(':')[-1]
+            self.engine = f"ollama_{model}"
 
     def _set_seed(self, seed):
         np.random.seed(seed)
@@ -83,9 +93,12 @@ class PromptGenerator:
             return None
     def load_results_json(self, output_file):
         output_dir = "results"
-        engine = "gpt-4_chat"
-        assert os.path.exists(f"{output_dir}/{self.data['domain_name']}/{engine}/" + output_file + ".json"), "File does not exist"
-        with open(f"{output_dir}/{self.data['domain_name']}/{engine}/" + output_file + ".json", "r") as f:
+        # engine = "gpt-4_chat"
+        # MOD OLLAMA
+        # this function is only used in task=t3
+        
+        assert os.path.exists(f"{output_dir}/{self.data['domain_name']}/{self.engine}/" + output_file + ".json"), "File does not exist"
+        with open(f"{output_dir}/{self.data['domain_name']}/{self.engine}/" + output_file + ".json", "r") as f:
             return json.load(f)
         
     

@@ -11,7 +11,7 @@ def generate_from_bloom(model, tokenizer, query, max_tokens):
     return tokenizer.decode(output_sequences[0], skip_special_tokes=True)
 
 
-def send_query(query, engine, max_tokens, model=None, stop="[STATEMENT]"):
+def send_query(query, engine, max_tokens, model=None, stop="[STATEMENT]", client=None): #MOD OLLAMA
     max_token_err_flag = False
     if engine == 'bloom':
 
@@ -60,7 +60,26 @@ def send_query(query, engine, max_tokens, model=None, stop="[STATEMENT]"):
             max_token_err_flag = True
             print("[-]: Failed GPT3 query execution: {}".format(e))
         text_response = response['choices'][0]['message']['content'] if not max_token_err_flag else ""
-        return text_response.strip()        
+        return text_response.strip()
+    
+    # MOD OLLAMA
+    elif 'ollama' in engine:
+            if model:
+                messages=[
+                    # Changed system content
+                    {"role": "system", "content": "You are the planner assistant who comes up with correct plans. You will be given an example: [STATEMENT] and [PLAN]. Return only the [PLAN]."},
+                    {"role": "user", "content": query}
+                    ]
+                try:
+                    response = client.chat(model=model, messages=messages)
+
+                except Exception as e:
+                    max_token_err_flag = True
+                    print("[-]: Failed OLLAMA query execution: {}".format(e))
+                text_response = response['message']['content'] #if not max_token_err_flag else ""
+                return text_response.strip()
+            else:
+                assert model is not None      
     else:
         try:
             response = openai.Completion.create(

@@ -32,6 +32,7 @@ if __name__=="__main__":
                         \n curie = GPT-3 Curie \
                         \n babbage = GPT-3 Babbage \
                         \n ada = GPT-3 Ada \
+                        \n ollama:moodelName -> Ex: ollama:llama3 \
                         ')
     
     parser.add_argument('--run_till_completion', type=str, default="False", help='Run till completion')
@@ -55,7 +56,7 @@ if __name__=="__main__":
 
 
     # ========================= Prompt Generation =========================
-    prompt_generator = PromptGenerator(config_file, verbose, ignore_existing, seed)
+    prompt_generator = PromptGenerator(config_file, verbose, ignore_existing, seed, engine) # MOD OLLAMA
     if task == 't1':
         prompt_generator.task_1_plan_generation(specified_instances, random_example)
     elif task == 't2':

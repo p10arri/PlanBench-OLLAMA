@@ -14,6 +14,10 @@ np.random.seed(42)
 import copy
 import time
 from tqdm import tqdm
+
+# MOD OLLAMA
+from ollama import Client
+
 class ResponseGenerator:
     def __init__(self, config_file, engine, verbose, ignore_existing):
         self.engine = engine
@@ -30,6 +34,18 @@ class ResponseGenerator:
             # print(model)
             self.engine='finetuned'
             self.model = {'model':model}
+        # MOD OLLAMA
+        elif 'ollama' in self.engine:
+            assert self.engine.split(':')[1] is not None
+            model = self.engine.split(':')[1:]
+            # print(model)
+            self.engine= f"ollama_{model}"
+            self.model = model  
+            # generate client hosted remotely
+            self.client = Client(host=os.environ['OLLAMA_HOST'])
+            #pull model
+            self.client.pull(self.model)
+            
         else:
             self.model = None
     def read_config(self, config_file):
@@ -78,7 +94,13 @@ class ResponseGenerator:
                 stop_statement = "[STATEMENT]"
                 if 'caesar' in self.data['domain_name']:
                     stop_statement = caesar_encode(stop_statement)
-                llm_response = send_query(query, self.engine, self.max_gpt_response_length, model=self.model, stop=stop_statement)
+
+                # MOD OLLAMA
+                if 'ollama' in self.engine:
+                    llm_response = send_query(query, self.engine, self.max_gpt_response_length, model=self.model, stop=stop_statement, engine= self.engine)
+                else:
+                    llm_response = send_query(query, self.engine, self.max_gpt_response_length, model=self.model, stop=stop_statement)
+                    
                 if not llm_response:
                     failed_instances.append(instance['instance_id'])
                     print(f"Failed instance: {instance['instance_id']}")
