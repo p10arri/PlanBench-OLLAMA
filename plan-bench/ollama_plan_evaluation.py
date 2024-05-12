@@ -62,11 +62,11 @@ if __name__=="__main__":
     # list of models to evaluate
     list_of_models = [#'llama3', 
                       'llama2', 'tinyllama','phind-codellama',
-                  'command-r-plus',
                   'wizardlm2',
                   'gemma',
-                  'mistral-openorca',
-                  'vicuna']
+                  'vicuna',
+                  'command-r-plus',
+                  'llama3:70B']
     
     # ========================= Prompt Generation =========================
     prompt_generator = PromptGenerator(config_file, verbose, ignore_existing, seed, engine) # engine parameter only affects task t3
@@ -76,7 +76,9 @@ if __name__=="__main__":
   
     pbar = tqdm(list_of_models)
     for model in pbar:
-        model 
+        if ':' in model:
+            model = '_'.join(model.split(':'))
+
         pbar.set_description(f"Generating responses of {model}")
         
         engine = f"{engine}:{model}"
@@ -87,6 +89,8 @@ if __name__=="__main__":
         response_generator.get_responses(task_name, run_till_completion=run_till_completion)
     print('RESPONSES GENERATED')
     print('KILL GOOGLE COLAB RUNTIME')
+
+
     # ========================= Response Evaluation =========================
     for char in pbar:
         model = char[0]

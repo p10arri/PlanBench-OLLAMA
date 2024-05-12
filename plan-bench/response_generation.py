@@ -37,7 +37,7 @@ class ResponseGenerator:
         # MOD OLLAMA
         elif 'ollama' in self.engine:
             assert self.engine.split(':')[1] is not None
-            model = self.engine.split(':')[-1]
+            model = '-'.join(self.engine.split(':')[1:])
             # print(model)
             self.engine= f"ollama_{model}"
             self.model = model  
