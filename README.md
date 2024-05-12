@@ -1,8 +1,23 @@
-# LLMs and Planning
+# OLLAMA LLMs and Planning
 
-This repo has the code for two papers:
-1. The code in 'plan-bench' subdirectory belongs to the paper ["PlanBench: An Extensible Benchmark for Evaluating Large Language Models on Planning and Reasoning about Change"](https://arxiv.org/abs/2206.10498)
-2. The code in 'llm_planning_analysis' subdirectory belongs to the paper ["On the Planning Abilities of Large Language Models--A Critical Investigation"](https://arxiv.org/abs/2305.15771)
+This repo is forked from [PlanBench](https://github.com/harshakokel/PlanBench) and modified so diverse models from OLLAMA can be evaluated. The repo also includes an [ngrok-google_colab](ollama_collab_ngrok.ipynb) integration in order to run the different models in the Computational Units of Google.
+
+## Models evaluated
+The models evaluated are:
+| Model        | Parameters           | Quantization  | Size |
+| ------------- |:-------------:| :-----:|-----:|
+| llama3      | 8B | 4-bit | 4.7 GB|
+|       | 70B | 4-bit | 40 GB|
+| llama2      | 7B | 4-bit | 3.8 GB| 
+| tinyllama      | 1B | 4-bit | 638MB |
+| phind-codellama      | 34B | 4-bit | 19 GB|
+| command-r-plus      | 104B | 4-bit | 59 GB|
+| wizardlm2      | 7B | 4-bit | 4.1 Gb|
+| gemma      | 9B | 4-bit | 5 GB|
+| vicuna      | 7B | 4-bit | 3.8 GB|
+
+
+
 
 
 
