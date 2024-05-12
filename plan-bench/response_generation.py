@@ -37,7 +37,7 @@ class ResponseGenerator:
         # MOD OLLAMA
         elif 'ollama' in self.engine:
             assert self.engine.split(':')[1] is not None
-            model = self.engine.split(':')[1:]
+            model = self.engine.split(':')[-1]
             # print(model)
             self.engine= f"ollama_{model}"
             self.model = model  
@@ -97,10 +97,10 @@ class ResponseGenerator:
 
                 # MOD OLLAMA
                 if 'ollama' in self.engine:
-                    llm_response = send_query(query, self.engine, self.max_gpt_response_length, model=self.model, stop=stop_statement, engine= self.engine)
+                    llm_response = send_query(query, self.engine, self.max_gpt_response_length, model=self.model, stop=stop_statement, client= self.client)
                 else:
                     llm_response = send_query(query, self.engine, self.max_gpt_response_length, model=self.model, stop=stop_statement)
-                    
+
                 if not llm_response:
                     failed_instances.append(instance['instance_id'])
                     print(f"Failed instance: {instance['instance_id']}")

@@ -76,7 +76,7 @@ def send_query(query, engine, max_tokens, model=None, stop="[STATEMENT]", client
                 except Exception as e:
                     max_token_err_flag = True
                     print("[-]: Failed OLLAMA query execution: {}".format(e))
-                text_response = response['message']['content'] #if not max_token_err_flag else ""
+                text_response = response['message']['content'] if not max_token_err_flag else ""
                 return text_response.strip()
             else:
                 assert model is not None      

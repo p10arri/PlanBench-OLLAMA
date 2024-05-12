@@ -73,18 +73,23 @@ if __name__=="__main__":
     prompt_generator.task_1_plan_generation(specified_instances, random_example)
     
     # ========================= Response Generation =========================
+  
     pbar = tqdm(list_of_models)
     for model in pbar:
+        model 
         pbar.set_description(f"Generating responses of {model}")
         
         engine = f"{engine}:{model}"
+        
         response_generator = ResponseGenerator(config_file, engine, verbose, ignore_existing)
         task_name = 'task_1_plan_generation'
 
         response_generator.get_responses(task_name, run_till_completion=run_till_completion)
-    print('RESPONSES GENERATED STOP COLAB RUNTIME')
+    print('RESPONSES GENERATED')
+    print('KILL GOOGLE COLAB RUNTIME')
     # ========================= Response Evaluation =========================
-    for model in pbar:
+    for char in pbar:
+        model = char[0]
         pbar.set_description(f"Evaluating responses of {model}")
 
         engine = f"{engine}:{model}"
