@@ -8,6 +8,7 @@ from response_evaluation import ResponseEvaluator
 from response_generation import ResponseGenerator
 
 from tqdm import tqdm
+import ollama
 
 if __name__=="__main__":
     random.seed(10)
@@ -61,12 +62,14 @@ if __name__=="__main__":
 
     # list of models to evaluate
     list_of_models = [#'llama3', 
-                      'llama2', 'tinyllama','phind-codellama',
-                  'wizardlm2',
-                  'gemma',
-                  'vicuna',
-                  'command-r-plus',
-                  'llama3:70B']
+                    #'llama2', 
+                    #'tinyllama',
+                    #'phind-codellama',
+                    #'wizardlm2',
+                    #'gemma',
+                    #'vicuna',
+                    'command-r-plus',
+                    'llama3:70B']
     
     # ========================= Prompt Generation =========================
     prompt_generator = PromptGenerator(config_file, verbose, ignore_existing, seed, engine) # engine parameter only affects task t3
@@ -87,6 +90,10 @@ if __name__=="__main__":
         task_name = 'task_1_plan_generation'
 
         response_generator.get_responses(task_name, run_till_completion=run_till_completion)
+        # restart ollama service
+        # client= ollama.Client(host=os.environ['OLLAMA_HOST'])
+        # client.
+
     print('RESPONSES GENERATED')
     print('KILL GOOGLE COLAB RUNTIME')
 
