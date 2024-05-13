@@ -68,7 +68,7 @@ if __name__=="__main__":
                     #'wizardlm2',
                     #'gemma',
                     #'vicuna',
-                    'command-r-plus',
+                    #'command-r-plus', #gives errors
                     'llama3:70B']
     
     # ========================= Prompt Generation =========================
