@@ -30,7 +30,7 @@ The models evaluated are:
      
 - [ ] Multiple *ollama models* in a loop:
   - [ ] Get responses
-      > :warning: **ERROR:** `ollama._types.ResponseError: pull model manifest: file does not exist`
+      > :warning: **ERROR:** `ollama._types.ResponseError: pull model manifest: file does not exist`<br />
       > [Bug from `ollama`: pulling from a PROXY causes errors](https://github.com/ollama/ollama/issues/1417)
 
 - [ ] Benchmark the models:
