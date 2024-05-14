@@ -214,6 +214,7 @@ def text_to_plan_blocksworld(text, action_set, plan_file, data, ground_flag=Fals
         else:
             AD[k] = word
 
+   
     # ----------- GET RAW AND TEXT-FORMATTED ACTIONS AND OBJECTS ----------- #
     actions_params_dict = dict(action_set.items())
     raw_actions = [i.lower() for i in list(action_set.keys())]
@@ -223,7 +224,6 @@ def text_to_plan_blocksworld(text, action_set, plan_file, data, ground_flag=Fals
     for raw_action, text_action in zip(raw_actions, text_actions):
         text = text.replace(text_action, raw_action)
     object_names = [x.lower() for x in LD.values()]
-
     # ----------- GET PLAN FROM TEXT ----------- #
     plan = ""
     readable_plan = ""
@@ -243,12 +243,16 @@ def text_to_plan_blocksworld(text, action_set, plan_file, data, ground_flag=Fals
         if len(objs) != n_objs:
             continue
         readable_objs = [obj.replace(' block', '') for obj in objs]
-        objs = [BD[x] for x in objs]
+        # MOD OLLAMA
+        # objs = [BD[x] for x in objs]
+   
         readable_action = "({} {})".format(action, " ".join(readable_objs[:n_objs + 1]))
         if not ground_flag:
-            action = "({} {})".format(action, " ".join(objs[:n_objs + 1]))
+            # action = "({} {})".format(action, " ".join(objs[:n_objs + 1]))
+            action = "({} {})".format(action, " ".join(readable_objs[:n_objs + 1]))
         else:
-            action = "({}_{})".format(action, "_".join(objs[:n_objs + 1]))
+            # action = "({}_{})".format(action, "_".join(objs[:n_objs + 1]))
+            action = "({}_{})".format(action, "_".join(readable_objs[:n_objs + 1]))
 
         plan += f"{action}\n"
         readable_plan += f"{readable_action}\n"

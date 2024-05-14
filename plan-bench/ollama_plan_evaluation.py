@@ -61,15 +61,17 @@ if __name__=="__main__":
     config_file = f'./configs/{config}.yaml'
 
     # list of models to evaluate
-    list_of_models = [#'llama3', 
+    list_of_models = [
+                    # 'llama3', 
                     #'llama2', 
                     #'tinyllama',
-                    #'phind-codellama',
-                    #'wizardlm2',
-                    #'gemma',
-                    #'vicuna',
+                    'phind-codellama',
+                    'wizardlm2',
+                    'gemma',
+                    'vicuna',
                     #'command-r-plus', #gives errors
-                    'llama3:70B']
+                    #'llama3:70B', # gives errors
+                    ]
     
     # ========================= Prompt Generation =========================
     prompt_generator = PromptGenerator(config_file, verbose, ignore_existing, seed, engine) # engine parameter only affects task t3

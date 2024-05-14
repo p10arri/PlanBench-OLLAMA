@@ -99,14 +99,20 @@ class ResponseEvaluator:
                 
                 try:
                     llm_plan, _ = text_to_plan(llm_response, problem.actions, self.llm_plan_file, self.data)
+                    # print('text to plan') # MOD
+
                     instance_dict["extracted_llm_plan"] = llm_plan
                     if 'new_instance' not in instance_dict:
                         correct = int(validate_plan(self.domain_pddl, cur_instance, self.llm_plan_file))
+                        # print('validate plan') # MOD
                     else:
                         self.write_new_instance(instance_dict['new_instance'])
                         correct = int(validate_plan('pr-new-domain.pddl', 'pr-new-problem.pddl', self.llm_plan_file))
                         #remove new_instance key from instance_dict
                         del instance_dict['new_instance']
+                    
+                    
+
                     if 'optimality' in task_name:
                         if correct:
                             cost = get_cost_gpt_3(llm_response)
@@ -124,10 +130,13 @@ class ResponseEvaluator:
                     print(f"Warning: Plan extraction failed for plan {id}")
                 if self.verbose:
                     print(f"Correct: {bool(correct)}")
+
+                
                 instance_dict["llm_correct"] = bool(correct)
                 total_correct += correct
                 total_instances += 1
                 self.save_json(structured_output, task_name)
+                
         if self.verbose:
             print(f"Total correct: {total_correct}")
             print(f"Total instances: {total_instances}")

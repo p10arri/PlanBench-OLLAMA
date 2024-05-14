@@ -255,7 +255,9 @@ def treat_on(letters_dict, atom):
 def validate_plan(domain, instance, plan_file):
     val_path = os.getenv("VAL")
     cmd = f"{val_path}/validate {domain} {instance} {plan_file}"
+    
     response = os.popen(cmd).read()
+    
     if 'Problem in domain' in response:
         raise Exception('Problem in domain: Check PDDL Writer')
     return True if "Plan valid" in response else False
