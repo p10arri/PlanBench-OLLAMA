@@ -2,6 +2,17 @@
 
 This repo is forked from [PlanBench](https://github.com/harshakokel/PlanBench) and modified so diverse models from OLLAMA can be evaluated. The repo also includes an [ngrok-google_colab](ollama_collab_ngrok.ipynb) integration in order to run the different models in the Computational Units of Google.
 
+<!-- Usage -->
+## Usage
+### Run the following command to run the entire pipeline:
+```
+function test() {
+  console.log("python llm_plan_pipeline.py --task TASK --config CONFIG --engine ENGINE [--ignore_existing] [--run_till_completion RUN-TILL-COMPLETION] [--specific_instances SPECIFIC-INSTANCES] [--random_example RANDOM-EXAMPLE] [--verbose VERBOSE] [--seed SEED]");
+}
+```
+
+
+
 <!-- Models -->
 ## Models evaluated
 The models evaluated are:
