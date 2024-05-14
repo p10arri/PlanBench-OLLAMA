@@ -6,8 +6,7 @@ This repo is forked from [PlanBench](https://github.com/harshakokel/PlanBench) a
 ## Usage
 ### Run the following command to run the entire pipeline:
 ```
-function test() {
-  python llm_plan_pipeline.py --task TASK --config CONFIG --engine ENGINE [--ignore_existing] [--run_till_completion RUN-TILL-COMPLETION] [--specific_instances SPECIFIC-INSTANCES] [--random_example RANDOM-EXAMPLE] [--verbose VERBOSE] [--seed SEED]}
+python llm_plan_pipeline.py --task TASK --config CONFIG --engine ENGINE [--ignore_existing] [--run_till_completion RUN-TILL-COMPLETION] [--specific_instances SPECIFIC-INSTANCES] [--random_example RANDOM-EXAMPLE] [--verbose VERBOSE] [--seed SEED]
 ```
 
 
