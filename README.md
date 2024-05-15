@@ -26,6 +26,12 @@ The models evaluated are:
 | gemma      | 9B | 4-bit | 5 GB|
 | vicuna      | 7B | 4-bit | 3.8 GB|
 
+<!-- Results -->
+## Results (notes)
+* One-Shot:This small LLMs fail to follow the restrictions when generating the plan
+    * Redundant action sequences Ex: `(pick-up red block)(put-down red block)`
+* Few(5)-Shot: 
+
 
 <!-- ROADMAP -->
 ## Roadmap
