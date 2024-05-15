@@ -10,6 +10,8 @@ from response_generation import ResponseGenerator
 from tqdm import tqdm
 import ollama
 
+from response_filter_evaluation_ollama import ResponseFilterEvaluatorOllama
+
 if __name__=="__main__":
     random.seed(10)
     parser = argparse.ArgumentParser()
@@ -62,10 +64,10 @@ if __name__=="__main__":
 
     # list of models to evaluate
     list_of_models = [
-                    # 'llama3', 
-                    #'llama2', 
-                    #'tinyllama',
-                    'phind-codellama',
+                     'llama3', 
+                    'llama2', 
+                    'tinyllama',
+                    'phind-codellama', # not completed
                     'wizardlm2',
                     'gemma',
                     'vicuna',
@@ -102,13 +104,22 @@ if __name__=="__main__":
 
     # ========================= Response Evaluation =========================
     for char in pbar:
-        model = char[0]
+        model = char
         pbar.set_description(f"Evaluating responses of {model}")
 
-        engine = f"{engine}:{model}"
-        response_evaluator = ResponseEvaluator(config_file, engine, specified_instances, verbose, ignore_existing)
+        engine_ = f"{engine}_{model}"
+        response_evaluator = ResponseEvaluator(config_file, engine_, specified_instances, verbose, ignore_existing)
         task_name = 'task_1_plan_generation'
         response_evaluator.evaluate_plan(task_name)
         
 
+    # ========================= Filter Response Evaluation =========================
+    for char in pbar:
+        model = char
+        pbar.set_description(f"Evaluating responses of {model}")
 
+        engine_ = f"{engine}_{model}"
+        response_evaluator = ResponseFilterEvaluatorOllama(config_file, engine_)
+        task_name = 'task_1_plan_generation'
+        response_evaluator.filter_evaluate_plan(task_name)
+        

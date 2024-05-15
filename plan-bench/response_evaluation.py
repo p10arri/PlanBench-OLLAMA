@@ -54,7 +54,7 @@ class ResponseEvaluator:
 
     def load_json(self, task_name):
         response_dir = f"responses/{self.data['domain_name']}/{self.engine}/"        
-        output_dir = f"results/{self.data['domain_name']}/{self.engine}/"
+        output_dir = f"results/{self.data['domain_name']}/{self.engine}/"        
         if not self.ignore_existing and os.path.exists(output_dir+f"{task_name}.json"):
             load_dir = output_dir
         else:
